@@ -8,18 +8,18 @@ const config = require(__dirname + '/../config/config.js');
 const db = {};
 
 const sequelize = new Sequelize(config.database, config.user, config.password, {
-  host: config.host,
-  dialect: 'postgres',
-  port: config.port,
-  operatorsAliases: false
-  // pool: {
-  //   max: config.pool.max,
-  //   min: config.pool.min,
-  //   acquire: config.pool.acquire,
-  //   idle: config.pool.idle
-  // }
-});
-
+    host: config.host,
+    dialect: 'postgres',
+    port: config.port,
+    operatorsAliases: false
+    // pool: {
+    //   max: config.pool.max,
+    //   min: config.pool.min,
+    //   acquire: config.pool.acquire,
+    //   idle: config.pool.idle
+    // }
+  });
+  
 fs
   .readdirSync(__dirname)
   .filter(file => {
@@ -38,7 +38,5 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
-db.users = require("../models/user.js")(sequelize, Sequelize);
 
 module.exports = db;

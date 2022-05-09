@@ -6,22 +6,24 @@ const sequelize = require('sequelize');
 
 const apiRouter = require('./routes/api');
 
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //Models
 const models = require("./models");
 
-// app.use('/api', apiRouter);
+app.use('/api', apiRouter);
 
+//Sync database
 models.sequelize.sync().then(function(){
     console.log('Nice database looks fine');
 }).catch(function(err){
     console.log(err, 'something went wrong with the database update');
 });
 
-app.listen(9000, function(){
-    console.log('Server is running successfully');
+app.listen(8000, function(){
+    console.log('testing API');
 });
 
 client.connect();
