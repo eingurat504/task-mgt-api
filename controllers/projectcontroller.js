@@ -1,10 +1,24 @@
 const express = require("express");
-const router = express.Router();
+const app = express();
+const db = require("../models");
+const Project = db.projects;
 
-async function index(req, res) {  
-    res.json({ message: 'WELCOME TO THE TASK MGT API'});
+
+async function getProjects(req, res) { 
+
+  Project.findAll()
+    .then(data => {
+      res.send({'projects': data });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+
 }
 
 module.exports = {
-  index
+  getProjects
 }
