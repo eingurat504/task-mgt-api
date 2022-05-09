@@ -8,6 +8,8 @@ router.get('/',api.index);
 
 /* project */
 router.get('/projects', projects.getProjects);
+router.get('/projects/pending', projects.getPendingProjects);
+router.get('/projects/completed', projects.getCompletedProjects);
 router.get('/projects/:id', projects.getProject);
 router.post('/projects', projects.registerProject);
 router.put('/projects/:id', projects.updateProject);
