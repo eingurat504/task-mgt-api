@@ -13,8 +13,7 @@ app.use(express.json());
 const models = require("./models");
 
 // app.use('/api', apiRouter);
-// console.log(models.sequelize);
-//Sync database
+
 models.sequelize.sync().then(function(){
     console.log('Nice database looks fine');
 }).catch(function(err){

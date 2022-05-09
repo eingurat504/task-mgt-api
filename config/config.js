@@ -13,7 +13,7 @@ const config = new Client({
   host: 'localhost',
   port: '5432',
   user: 'postgres',
-  password: 'ingurat1991',
+  password: '',
   database: 'task_mgt_api'
 });
 
