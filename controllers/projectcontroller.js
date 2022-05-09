@@ -58,7 +58,7 @@ async function getProjects(req, res) {
  * @api  api/projects/pending
  */
  async function getPendingProjects(req, res) { 
-console.log('pending projects');
+
   Project.findAll({ where: { status: 'pending' }  })
     .then(data => {
       res.send({'pending_projects': data });
