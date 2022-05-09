@@ -20,7 +20,53 @@ async function getProjects(req, res) {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials."
+          err.message || "Some error occurred while retrieving projects."
+      });
+    });
+
+}
+
+/**
+ * Get Projects
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api  api/projects/completed
+ */
+ async function getCompletedProjects(req, res) { 
+
+  Project.findAll({ where: { status: 'completed' }  })
+    .then(data => {
+      res.send({'completed_projects': data });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving projects."
+      });
+    });
+
+}
+
+/**
+ * Get Pending Projects
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api  api/projects/pending
+ */
+ async function getPendingProjects(req, res) { 
+console.log('pending projects');
+  Project.findAll({ where: { status: 'pending' }  })
+    .then(data => {
+      res.send({'pending_projects': data });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving projects."
       });
     });
 
@@ -74,7 +120,7 @@ async function registerProject(req, res) {
   // Save Zone in the database
   Project.create(data)
     .then(data => {
-      res.send(data);
+      res.status(201).send(data);
     })
     .catch(err => {
       res.status(500).send({
@@ -157,6 +203,8 @@ module.exports = {
   getProjects,
   getProject,
   registerProject,
+  getCompletedProjects,
+  getPendingProjects,
   updateProject,
   deleteProject
 }
