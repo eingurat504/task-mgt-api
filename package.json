@@ -19,6 +19,7 @@
   "homepage": "https://github.com/eingurat504/task-mgt-api#readme",
   "dependencies": {
     "express": "^4.18.1",
+    "pg": "^8.7.3",
     "sequelize": "^6.19.0",
     "sequelize-cli": "^6.4.1"
   }
