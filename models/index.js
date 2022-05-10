@@ -40,5 +40,6 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.projects = require("../models/project.js")(sequelize, Sequelize);
+db.tasks = require("../models/task.js")(sequelize, Sequelize);
 
 module.exports = db;
