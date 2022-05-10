@@ -36,7 +36,7 @@ async function getTasks(req, res) {
  */
  async function getCompletedTasks(req, res) { 
 
-  task.findAll({ where: { status: 'completed' }  })
+  Task.findAll({ where: { status: 'completed' }  })
     .then(data => {
       res.send({'completed_tasks': data });
     })
@@ -73,6 +73,29 @@ async function getTasks(req, res) {
 }
 
 /**
+ * Get Accepted tasks
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api  api/tasks/accepted
+ */
+ async function getAcceptedTasks(req, res) { 
+
+  Task.findAll({ where: { status: 'accepted' }  })
+    .then(data => {
+      res.send({'accepted_tasks': data });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tasks."
+      });
+    });
+
+}
+
+/**
  * Get Task details
  * 
  * @param {*} req 
@@ -84,7 +107,7 @@ async function getTask(req, res) {
 
   const id = req.params.id
 
-  task.findByPk(id)
+  Task.findByPk(id)
     .then(data => {
       if (data) {
         res.send({'task' : data});
@@ -206,5 +229,6 @@ module.exports = {
   getCompletedTasks,
   getPendingTasks,
   updateTask,
+  getAcceptedTasks,
   deleteTask
 }
