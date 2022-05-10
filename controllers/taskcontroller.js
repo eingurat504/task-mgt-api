@@ -36,7 +36,7 @@ async function getTasks(req, res) {
  */
  async function getCompletedTasks(req, res) { 
 
-  Project.findAll({ where: { status: 'completed' }  })
+  task.findAll({ where: { status: 'completed' }  })
     .then(data => {
       res.send({'completed_tasks': data });
     })
@@ -78,31 +78,31 @@ async function getTasks(req, res) {
  * @param {*} req 
  * @param {*} res
  * 
- * @api  api/tasks/{project}
+ * @api  api/tasks/{task}
  */
 async function getTask(req, res) { 
 
   const id = req.params.id
 
-  Project.findByPk(id)
+  task.findByPk(id)
     .then(data => {
       if (data) {
-        res.send({'project' : data});
+        res.send({'task' : data});
       } else {
         res.status(404).send({
-          message: `Cannot find Project with id=${id}.`
+          message: `Cannot find task with id=${id}.`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving Project with id=" + id
+        message: "Error retrieving task with id=" + id
       });
     });
 }
 
 /**
- * Register a new Project
+ * Register a new task
  * 
  * @param {*} req 
  * @param {*} res
@@ -137,7 +137,7 @@ async function registerTask(req, res) {
  * @param {*} req 
  * @param {*} res 
  * 
- * @api api/tasks/{project}
+ * @api api/tasks/{task}
  */
 async function updateTask(req, res) {
 
@@ -149,29 +149,29 @@ async function updateTask(req, res) {
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Project was updated successfully."
+          message: "task was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update Project with id=${id}. Maybe Project was not found or req.body is empty!`
+          message: `Cannot update task with id=${id}. Maybe task was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating Project with id=" + id
+        message: "Error updating task with id=" + id
       });
     });
 
 }
 
 /**
- * Delete Project
+ * Delete task
  * 
  * @param {*} req 
  * @param {*} res
  * 
- * @api api/tasks/{project} 
+ * @api api/tasks/{task} 
  */
 async function deleteTask(req, res) {
 
@@ -183,11 +183,11 @@ async function deleteTask(req, res) {
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Project was deleted successfully!"
+          message: "task was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete Project with id=${id}. Maybe Project was not found!`
+          message: `Cannot delete task with id=${id}. Maybe task was not found!`
         });
       }
     })
