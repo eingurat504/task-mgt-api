@@ -23,6 +23,8 @@ router.get('/tasks/accepted', tasks.getAcceptedTasks);
 router.get('/tasks/:id', tasks.getTask);
 router.post('/tasks', tasks.registerTask);
 router.put('/tasks/:id', tasks.updateTask);
+router.put('/tasks/:id/accept', tasks.acceptTask);
+router.put('/tasks/:id/complete', tasks.completeTask);
 router.delete('/tasks/:id', tasks.deleteTask);
 
 module.exports = router;

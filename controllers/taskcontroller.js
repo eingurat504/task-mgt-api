@@ -155,6 +155,74 @@ async function registerTask(req, res) {
 }
 
 /**
+ * Accept Task
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api api/tasks/{task}/accept
+ */
+ async function acceptTask(req, res) {
+
+  const id = req.params.id;
+
+  Task.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "task was accepted successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update task with id=${id}. Maybe task was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating task with id=" + id
+      });
+    });
+
+}
+
+/**
+ * Complete Task
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api api/tasks/{task}/complete
+ */
+ async function completeTask(req, res) {
+
+  const id = req.params.id;
+
+  Task.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "task was completed successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update task with id=${id}. Maybe task was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating task with id=" + id
+      });
+    });
+
+}
+
+/**
  * Update Task
  * 
  * @param {*} req 
@@ -229,6 +297,8 @@ module.exports = {
   getCompletedTasks,
   getPendingTasks,
   updateTask,
+  acceptTask,
+  completeTask,
   getAcceptedTasks,
   deleteTask
 }
