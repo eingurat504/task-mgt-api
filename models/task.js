@@ -5,6 +5,10 @@ module.exports = function(sequelize, Sequelize){
             primaryKey: true,
             type: Sequelize.INTEGER
         },
+        project_id: {
+            type: Sequelize.INTEGER,
+            noEmpty: true
+        },
         name: {
             type: Sequelize.STRING,
             noEmpty: true
