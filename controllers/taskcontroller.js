@@ -100,7 +100,7 @@ async function getTasks(req, res) {
  * @param {*} req 
  * @param {*} res 
  * 
- * @api  api/tasks/accepted
+ * @api  api/tasks/reviewed
  */
  async function getReviewedTasks(req, res) { 
 
@@ -312,6 +312,39 @@ async function updateTask(req, res) {
 }
 
 /**
+ * Reject task
+ * 
+ * @param {*} req 
+ * @param {*} res
+ * 
+ * @api api/tasks/{task} 
+ */
+ async function rejectTask(req, res) {
+
+  const id = req.params.id;
+
+  Task.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "task was rejected successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update task with id=${id}. Maybe task was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating task with id=" + id
+      });
+    });
+}
+
+/**
  * Delete task
  * 
  * @param {*} req 
@@ -350,10 +383,13 @@ module.exports = {
   getTask,
   registerTask,
   getCompletedTasks,
+  getReviewedTasks,
   getPendingTasks,
   updateTask,
   acceptTask,
   completeTask,
+  reviewTask,
+  rejectTask,
   getAcceptedTasks,
   deleteTask
 }

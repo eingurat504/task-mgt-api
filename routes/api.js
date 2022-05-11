@@ -18,12 +18,15 @@ router.delete('/projects/:id', projects.deleteProject);
 /* Task */
 router.get('/tasks', tasks.getTasks);
 router.get('/tasks/pending', tasks.getPendingTasks);
+router.get('/tasks/reviewed', tasks.getReviewedTasks);
 router.get('/tasks/completed', tasks.getCompletedTasks);
 router.get('/tasks/accepted', tasks.getAcceptedTasks);
 router.get('/tasks/:id', tasks.getTask);
 router.post('/tasks', tasks.registerTask);
 router.put('/tasks/:id', tasks.updateTask);
 router.put('/tasks/:id/accept', tasks.acceptTask);
+router.put('/tasks/:id/review', tasks.reviewTask);
+router.put('/tasks/:id/reject', tasks.rejectTask);
 router.put('/tasks/:id/complete', tasks.completeTask);
 router.delete('/tasks/:id', tasks.deleteTask);
 
