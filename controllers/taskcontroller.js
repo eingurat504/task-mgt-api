@@ -92,7 +92,28 @@ async function getTasks(req, res) {
           err.message || "Some error occurred while retrieving tasks."
       });
     });
+}
 
+/**
+ * Get Reviewed tasks
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api  api/tasks/accepted
+ */
+ async function getReviewedTasks(req, res) { 
+
+  Task.findAll({ where: { status: 'reviewed' }  })
+    .then(data => {
+      res.send({'reviewed_tasks': data });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tasks."
+      });
+    });
 }
 
 /**
@@ -173,6 +194,40 @@ async function registerTask(req, res) {
       if (num == 1) {
         res.send({
           message: "task was accepted successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update task with id=${id}. Maybe task was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating task with id=" + id
+      });
+    });
+
+}
+
+/**
+ * Accept Task
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api api/tasks/{task}/review
+ */
+ async function reviewTask(req, res) {
+
+  const id = req.params.id;
+
+  Task.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "task was reviewed successfully."
         });
       } else {
         res.send({
