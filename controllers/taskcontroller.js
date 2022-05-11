@@ -117,6 +117,28 @@ async function getTasks(req, res) {
 }
 
 /**
+ * Get Rejected tasks
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api  api/tasks/reviewed
+ */
+ async function getRejectedTasks(req, res) { 
+
+  Task.findAll({ where: { status: 'rejected' }  })
+    .then(data => {
+      res.send({'reviewed_tasks': data });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tasks."
+      });
+    });
+}
+
+/**
  * Get Task details
  * 
  * @param {*} req 
@@ -383,6 +405,7 @@ module.exports = {
   getTask,
   registerTask,
   getCompletedTasks,
+  getRejectedTasks,
   getReviewedTasks,
   getPendingTasks,
   updateTask,
