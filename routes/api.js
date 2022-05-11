@@ -19,6 +19,7 @@ router.delete('/projects/:id', projects.deleteProject);
 router.get('/tasks', tasks.getTasks);
 router.get('/tasks/pending', tasks.getPendingTasks);
 router.get('/tasks/reviewed', tasks.getReviewedTasks);
+router.get('/tasks/rejected', tasks.getRejectedTasks);
 router.get('/tasks/completed', tasks.getCompletedTasks);
 router.get('/tasks/accepted', tasks.getAcceptedTasks);
 router.get('/tasks/:id', tasks.getTask);

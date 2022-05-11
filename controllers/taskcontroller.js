@@ -210,7 +210,7 @@ async function registerTask(req, res) {
   const id = req.params.id;
 
   Task.update(req.body, {
-    where: { id: id }
+    where: { id: id, status: 'pending' }
   })
     .then(num => {
       if (num == 1) {
@@ -244,7 +244,7 @@ async function registerTask(req, res) {
   const id = req.params.id;
 
   Task.update(req.body, {
-    where: { id: id }
+    where: { id: id, status: 'accepted' }
   })
     .then(num => {
       if (num == 1) {
@@ -278,7 +278,7 @@ async function registerTask(req, res) {
   const id = req.params.id;
 
   Task.update(req.body, {
-    where: { id: id }
+    where: { id: id, status: 'reviewed' }
   })
     .then(num => {
       if (num == 1) {
@@ -339,14 +339,14 @@ async function updateTask(req, res) {
  * @param {*} req 
  * @param {*} res
  * 
- * @api api/tasks/{task} 
+ * @api api/tasks/{task}/reject 
  */
  async function rejectTask(req, res) {
 
   const id = req.params.id;
 
   Task.update(req.body, {
-    where: { id: id }
+    where: { id: id, status: 'accepted' }
   })
     .then(num => {
       if (num == 1) {
@@ -408,11 +408,11 @@ module.exports = {
   getRejectedTasks,
   getReviewedTasks,
   getPendingTasks,
+  getAcceptedTasks,
   updateTask,
   acceptTask,
   completeTask,
   reviewTask,
   rejectTask,
-  getAcceptedTasks,
   deleteTask
 }

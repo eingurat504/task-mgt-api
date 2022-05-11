@@ -14,7 +14,7 @@ module.exports = function(sequelize, Sequelize){
             noEmpty: true
         },
         status: {
-            type:Sequelize.ENUM('completed','pending','accepted'),
+            type:Sequelize.ENUM('completed','pending','accepted','rejected','reviewed','deleted'),
             defaultValue: 'pending'
         },
         description: {
