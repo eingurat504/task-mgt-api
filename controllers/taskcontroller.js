@@ -4,7 +4,7 @@ const db = require("../models");
 const Task = db.tasks;
 
 /**
- * Get tasks
+ * Get Tasks
  * 
  * @param {*} req 
  * @param {*} res 
@@ -27,7 +27,7 @@ async function getTasks(req, res) {
 }
 
 /**
- * Get tasks
+ * Get Cpmpleted Tasks
  * 
  * @param {*} req 
  * @param {*} res 
@@ -122,13 +122,13 @@ async function getTasks(req, res) {
  * @param {*} req 
  * @param {*} res 
  * 
- * @api  api/tasks/reviewed
+ * @api  api/tasks/rejected
  */
  async function getRejectedTasks(req, res) { 
 
   Task.findAll({ where: { status: 'rejected' }  })
     .then(data => {
-      res.send({'reviewed_tasks': data });
+      res.send({'rejected_tasks': data });
     })
     .catch(err => {
       res.status(500).send({
@@ -232,7 +232,7 @@ async function registerTask(req, res) {
 }
 
 /**
- * Accept Task
+ * Review Task
  * 
  * @param {*} req 
  * @param {*} res 
