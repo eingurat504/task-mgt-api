@@ -17,12 +17,28 @@ module.exports = function(sequelize, Sequelize){
             type:Sequelize.ENUM('completed','pending','accepted','rejected','reviewed','deleted'),
             defaultValue: 'pending'
         },
+        priorty_level: {
+            type:Sequelize.ENUM('Low','Medium', 'High','Critical'),
+            defaultValue: 'Medium'
+        },
+        progress: {
+            type:Sequelize.ENUM('Not Started','Started','Almost done', 'Done'),
+            defaultValue: 'Not Started'
+        },
         description: {
             type: Sequelize.STRING,
             noEmpty:true
         },
         remarks: {
             type: Sequelize.STRING,
+            noEmpty:true
+        },
+        created_by: {
+            type:Sequelize.STRING,
+            noEmpty:true
+        },
+        assigned_to: {
+            type:Sequelize.INTEGER,
             noEmpty:true
         }
     });
