@@ -112,7 +112,7 @@ async function getProject(req, res) {
  */
 async function registerProject(req, res) {
 
-  await check('name').notEmpty()
+    await check('name').notEmpty()
     .withMessage('Name is Required').run(req);
 
     const result = validationResult(req);
@@ -137,7 +137,7 @@ async function registerProject(req, res) {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Zone."
+          err.message || "Some error occurred while creating the Project."
       });
     });
 
