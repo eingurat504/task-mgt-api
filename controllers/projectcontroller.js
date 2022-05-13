@@ -1,4 +1,5 @@
 const express = require("express");
+const { check, validationResult } = require('express-validator');
 const app = express();
 const db = require("../models");
 const Project = db.projects;
@@ -111,13 +112,43 @@ async function getProject(req, res) {
  */
 async function registerProject(req, res) {
 
+    await check('name').notEmpty()
+    .withMessage('Name is Required').run(req);
+
+    const result = validationResult(req);
+
+    if (!result.isEmpty()) {
+        return res.status(422).json({ 
+        errors: result.array() 
+        });
+    }
+  
   const data = {
     name: req.body.name,
     status: req.body.status,
     description: req.body.description,
   };
 
-  // Save Zone in the database
+  // Get user input   
+  const project_name = req.body.name;
+
+  // Validate if user already exists
+  let project = await Project.findOne({ where: {
+    name : project_name
+  } });
+
+  if (project) {
+    return res.status(200).json({
+      errors: [
+        {
+          name: project.name,
+          msg: "The project already exists"
+        },
+      ],
+    });
+  }
+
+  // Save Project in the database
   Project.create(data)
     .then(data => {
       res.status(201).send(data);
@@ -125,7 +156,7 @@ async function registerProject(req, res) {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Zone."
+          err.message || "Some error occurred while creating the Project."
       });
     });
 

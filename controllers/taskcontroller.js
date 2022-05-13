@@ -1,7 +1,9 @@
 const express = require("express");
+const { check, validationResult } = require('express-validator');
 const app = express();
 const db = require("../models");
 const Task = db.tasks;
+const Project = db.projects;
 
 /**
  * Get Tasks
@@ -177,11 +179,62 @@ async function getTask(req, res) {
  */
 async function registerTask(req, res) {
 
+  await check('name').notEmpty()
+  .withMessage('Name is Required').run(req);
+
+  await check('project_id').notEmpty()
+  .withMessage('Project ID is Required').run(req);
+
+  const result = validationResult(req);
+
+  if (!result.isEmpty()) {
+      return res.status(422).json({ 
+      errors: result.array() 
+      });
+  }
+
   const data = {
     name: req.body.name,
+    project_id: req.body.project_id,
     status: req.body.status,
     description: req.body.description,
+    remarks: req.body.remarks,
   };
+
+  // Get task input   
+  const task_name = req.body.name;
+
+  // Validate if task already exists
+  let task = await Task.findOne({ where: {
+    name : task_name
+  } });
+
+  if (task) {
+    return res.status(200).json({
+      errors: [
+        {
+          name: task.name,
+          msg: "The task already exists"
+        },
+      ],
+    });
+  }
+
+  const project_id = req.body.project_id;
+
+   // Validate if project exists
+  let project = await Project.findOne({ where: { id: project_id } });
+
+  if (project == null) {
+    return res.status(200).json({
+      errors: [
+        {
+          id: project_id,
+          msg: "The Project ID does not exist"
+        },
+      ],
+    });
+  }
 
   // Save Task in the database
   Task.create(data)
