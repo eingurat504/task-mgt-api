@@ -1,4 +1,5 @@
 const express = require("express");
+const { check, validationResult } = require('express-validator');
 const app = express();
 const db = require("../models");
 const Project = db.projects;
@@ -111,6 +112,17 @@ async function getProject(req, res) {
  */
 async function registerProject(req, res) {
 
+  await check('name').notEmpty()
+    .withMessage('Name is Required').run(req);
+
+    const result = validationResult(req);
+
+    if (!result.isEmpty()) {
+        return res.status(422).json({ 
+        errors: result.array() 
+        });
+    }
+  
   const data = {
     name: req.body.name,
     status: req.body.status,
