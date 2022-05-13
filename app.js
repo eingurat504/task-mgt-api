@@ -19,7 +19,7 @@ models.sequelize.sync().then(function(){
     console.log(err, 'something went wrong with the database update');
 });
 
-app.listen(8000, function(){
+app.listen(5000, function(){
     console.log('TASK MANAGEMENT API');
 });
 
