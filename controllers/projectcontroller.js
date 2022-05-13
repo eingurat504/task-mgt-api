@@ -129,7 +129,26 @@ async function registerProject(req, res) {
     description: req.body.description,
   };
 
-  // Save Zone in the database
+  // Get user input   
+  const project_name = req.body.name;
+
+  // Validate if user already exists
+  let project = await Project.findOne({ where: {
+    name : project_name
+  } });
+
+  if (project) {
+    return res.status(200).json({
+      errors: [
+        {
+          name: project.name,
+          msg: "The project already exists"
+        },
+      ],
+    });
+  }
+
+  // Save Project in the database
   Project.create(data)
     .then(data => {
       res.status(201).send(data);
