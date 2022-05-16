@@ -69,24 +69,31 @@ async function deactivateUser(req, res) {
 
     const id = req.params.id;
   
-    User.destroy({
-      where: { id: id }
-    })
-      .then(num => {
-        if (num == 1) {
-          res.send({
-            message: "user was deactivated successfully!"
-          });
-        } else {
-          res.send({
-            message: `Cannot deactivate user with id=${id}. Maybe user was not found!`
-          });
-        }
+    User.update(req.body, {
+        where: { id: id, status: 'active' }
       })
-      .catch(err => {
-        res.status(500).send({
-          message: "Could not deactivate User with id=" + id
+        .then(num => {
+          if (num == 1) {
+            res.send({
+              message: "User was deactivated successfully."
+            });
+          } else {
+            res.send({
+              message: `Cannot dactivate user with id=${id}. Maybe user was not found or req.body is empty!`
+            });
+          }
+        })
+        .catch(err => {
+          res.status(500).send({
+            message: "Error deactivating user with id=" + id
+          });
         });
-      });
   
+  }
+
+
+  module.exports = {
+    getUsers,
+    getUser,
+    deactivateUser
   }

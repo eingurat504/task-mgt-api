@@ -4,6 +4,7 @@ const api = require('../controllers/indexcontroller.js');
 const authenticate = require('../controllers/authcontroller.js');
 const projects = require('../controllers/projectcontroller.js');
 const tasks = require('../controllers/taskcontroller.js');
+const users = require('../controllers/usercontroller.js');
 
 router.get('/',api.index);
 
@@ -36,5 +37,11 @@ router.put('/tasks/:id/review', tasks.reviewTask);
 router.put('/tasks/:id/reject', tasks.rejectTask);
 router.put('/tasks/:id/complete', tasks.completeTask);
 router.delete('/tasks/:id', tasks.deleteTask);
+
+
+/* User */
+router.get('/users', users.getUsers);
+router.get('/users/:id', users.getUser);
+router.put('/users/:id/deactivate', users.deactivateUser);
 
 module.exports = router;
