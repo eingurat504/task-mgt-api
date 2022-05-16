@@ -1,10 +1,15 @@
 const express = require('express');
 const router = express();
 const api = require('../controllers/indexcontroller.js');
+const authenticate = require('../controllers/authcontroller.js');
 const projects = require('../controllers/projectcontroller.js');
 const tasks = require('../controllers/taskcontroller.js');
 
 router.get('/',api.index);
+
+/* Auth */
+router.post('/auth/login', authenticate.login);
+router.post('/auth/register', authenticate.register);
 
 /* project */
 router.get('/projects', projects.getProjects);
