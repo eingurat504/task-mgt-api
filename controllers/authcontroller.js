@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const db = require("../../models");
+const db = require("../models");
 const User = db.users;
 
 /**

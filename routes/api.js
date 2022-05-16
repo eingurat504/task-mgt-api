@@ -8,7 +8,6 @@ const tasks = require('../controllers/taskcontroller.js');
 router.get('/',api.index);
 
 /* Auth */
-router.get('/',apiIndex.index);
 router.post('/auth/login', authenticate.login);
 router.post('/auth/register', authenticate.register);
 
