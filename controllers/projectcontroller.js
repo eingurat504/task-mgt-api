@@ -129,10 +129,10 @@ async function registerProject(req, res) {
     description: req.body.description,
   };
 
-  // Get user input   
+  // Get project input   
   const project_name = req.body.name;
 
-  // Validate if user already exists
+  // Validate if project already exists
   let project = await Project.findOne({ where: {
     name : project_name
   } });
