@@ -50,6 +50,28 @@ async function getUsers(req, res) {
 }
 
 /**
+ * Get deactivated users
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api  api/users/deactivated
+ */
+ async function getDeactivatedUsers(req, res) { 
+
+  User.findAll({ where: { status: 'inactive' }  })
+    .then(data => {
+      res.send({'deactivated_users': data });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving users."
+      });
+    });
+}
+
+/**
  * Get User details
  * 
  * @param {*} req 
