@@ -56,6 +56,41 @@ async function getUsers(req, res) {
       });
   }
 
+  /**
+ * Complete Task
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api api/tasks/{task}/complete
+ */
+ async function updateUserProfile(req, res) {
+
+  const id = req.params.id;
+
+  Task.update(req.body, {
+    where: { id: id, status: 'active' }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "User profile was completed successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update user profile with id=${id}. Maybe profile was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating profile with id=" + id
+      });
+    });
+
+}
+
+
 
   /**
  * Deactivate user
