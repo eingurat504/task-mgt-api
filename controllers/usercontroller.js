@@ -176,14 +176,47 @@ async function deactivateUser(req, res) {
             message: "Error deactivating user with id=" + id
           });
         });
-  
   }
-  
+
+  /**
+ * Delete User
+ * 
+ * @param {*} req 
+ * @param {*} res
+ * 
+ * @api api/users/{user} 
+ */
+async function deleteUser(req, res) {
+
+  const id = req.params.id;
+
+  User.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "User was deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete User with id=${id}. Maybe User was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete User with id=" + id
+      });
+    });
+}
+
   module.exports = {
     getUsers,
     getUser,
     getActiveUsers,
     updateUserProfile,
     getDeactivatedUsers,
-    deactivateUser
+    deactivateUser,
+    deleteUser
   }
