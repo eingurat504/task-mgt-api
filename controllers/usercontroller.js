@@ -28,6 +28,50 @@ async function getUsers(req, res) {
 }
 
 /**
+ * Get active users
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api  api/users/active
+ */
+ async function getActiveUsers(req, res) { 
+
+  User.findAll({ where: { status: 'active' }  })
+    .then(data => {
+      res.send({'active_users': data });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving users."
+      });
+    });
+}
+
+/**
+ * Get deactivated users
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api  api/users/deactivated
+ */
+ async function getDeactivatedUsers(req, res) { 
+
+  User.findAll({ where: { status: 'inactive' }  })
+    .then(data => {
+      res.send({'deactivated_users': data });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving users."
+      });
+    });
+}
+
+/**
  * Get User details
  * 
  * @param {*} req 
@@ -56,6 +100,39 @@ async function getUsers(req, res) {
       });
   }
 
+  /**
+ * Update user profile
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api api/users/{user}/profile
+ */
+ async function updateUserProfile(req, res) {
+
+  const id = req.params.id;
+
+  Task.update(req.body, {
+    where: { id: id, status: 'active' }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "User profile was completed successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update user profile with id=${id}. Maybe profile was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating profile with id=" + id
+      });
+    });
+
+}
 
   /**
  * Deactivate user
@@ -95,5 +172,8 @@ async function deactivateUser(req, res) {
   module.exports = {
     getUsers,
     getUser,
+    getActiveUsers,
+    updateUserProfile,
+    getDeactivatedUsers,
     deactivateUser
   }
