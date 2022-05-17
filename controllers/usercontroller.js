@@ -16,7 +16,7 @@ async function getUsers(req, res) {
 
   User.findAll()
     .then(data => {
-      res.send({'tasks': data });
+      res.send({'users': data });
     })
     .catch(err => {
       res.status(500).send({
