@@ -5,6 +5,7 @@ const authenticate = require('../controllers/authcontroller.js');
 const projects = require('../controllers/projectcontroller.js');
 const tasks = require('../controllers/taskcontroller.js');
 const users = require('../controllers/usercontroller.js');
+const auth = require("../middleware/auth");
 
 router.get('/',api.index);
 
@@ -13,30 +14,30 @@ router.post('/auth/login', authenticate.login);
 router.post('/auth/register', authenticate.register);
 
 /* project */
-router.get('/projects', projects.getProjects);
-router.get('/projects/pending', projects.getPendingProjects);
-router.get('/projects/completed', projects.getCompletedProjects);
-router.get('/projects/:id', projects.getProject);
-router.post('/projects', projects.registerProject);
-router.put('/projects/:id', projects.updateProject);
-router.put('/projects/:id/complete', projects.completeProject);
-router.delete('/projects/:id', projects.deleteProject);
+router.get('/projects', auth, projects.getProjects);
+router.get('/projects/pending', auth, projects.getPendingProjects);
+router.get('/projects/completed',auth, projects.getCompletedProjects);
+router.get('/projects/:id', auth, projects.getProject);
+router.post('/projects', auth, projects.registerProject);
+router.put('/projects/:id', auth, projects.updateProject);
+router.put('/projects/:id/complete', auth,  projects.completeProject);
+router.delete('/projects/:id', auth, projects.deleteProject);
 
 /* Task */
-router.get('/tasks', tasks.getTasks);
-router.get('/tasks/pending', tasks.getPendingTasks);
-router.get('/tasks/reviewed', tasks.getReviewedTasks);
-router.get('/tasks/rejected', tasks.getRejectedTasks);
-router.get('/tasks/completed', tasks.getCompletedTasks);
-router.get('/tasks/accepted', tasks.getAcceptedTasks);
-router.get('/tasks/:id', tasks.getTask);
-router.post('/tasks', tasks.registerTask);
-router.put('/tasks/:id', tasks.updateTask);
-router.put('/tasks/:id/accept', tasks.acceptTask);
-router.put('/tasks/:id/review', tasks.reviewTask);
-router.put('/tasks/:id/reject', tasks.rejectTask);
-router.put('/tasks/:id/complete', tasks.completeTask);
-router.delete('/tasks/:id', tasks.deleteTask);
+router.get('/tasks', auth, tasks.getTasks);
+router.get('/tasks/pending', auth, tasks.getPendingTasks);
+router.get('/tasks/reviewed', auth, tasks.getReviewedTasks);
+router.get('/tasks/rejected', auth, tasks.getRejectedTasks);
+router.get('/tasks/completed', auth, tasks.getCompletedTasks);
+router.get('/tasks/accepted',auth, tasks.getAcceptedTasks);
+router.get('/tasks/:id', auth, tasks.getTask);
+router.post('/tasks', auth, tasks.registerTask);
+router.put('/tasks/:id', auth, tasks.updateTask);
+router.put('/tasks/:id/accept', auth, tasks.acceptTask);
+router.put('/tasks/:id/review', auth, tasks.reviewTask);
+router.put('/tasks/:id/reject', auth, tasks.rejectTask);
+router.put('/tasks/:id/complete', auth, tasks.completeTask);
+router.delete('/tasks/:id', auth, tasks.deleteTask);
 
 
 /* User */
