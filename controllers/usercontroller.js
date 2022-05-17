@@ -16,7 +16,7 @@ async function getUsers(req, res) {
 
   User.findAll()
     .then(data => {
-      res.send({'tasks': data });
+      res.send({'users': data });
     })
     .catch(err => {
       res.status(500).send({
@@ -140,9 +140,20 @@ async function getUsers(req, res) {
  * @param {*} req 
  * @param {*} res
  * 
- * @api api/users/{user} 
+ * @api api/users/{user}/deactivate
  */
 async function deactivateUser(req, res) {
+
+    await check('status').notEmpty()
+    .withMessage('Status is Required').run(req);
+
+    const result = validationResult(req);
+
+    if (!result.isEmpty()) {
+        return res.status(422).json({ 
+        errors: result.array() 
+        });
+    }
 
     const id = req.params.id;
   
@@ -165,9 +176,40 @@ async function deactivateUser(req, res) {
             message: "Error deactivating user with id=" + id
           });
         });
-  
   }
 
+  /**
+ * Delete User
+ * 
+ * @param {*} req 
+ * @param {*} res
+ * 
+ * @api api/users/{user} 
+ */
+async function deleteUser(req, res) {
+
+  const id = req.params.id;
+
+  User.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "User was deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete User with id=${id}. Maybe User was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete User with id=" + id
+      });
+    });
+}
 
   module.exports = {
     getUsers,
@@ -175,5 +217,6 @@ async function deactivateUser(req, res) {
     getActiveUsers,
     updateUserProfile,
     getDeactivatedUsers,
-    deactivateUser
+    deactivateUser,
+    deleteUser
   }
