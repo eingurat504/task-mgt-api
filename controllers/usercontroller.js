@@ -172,5 +172,8 @@ async function deactivateUser(req, res) {
   module.exports = {
     getUsers,
     getUser,
+    getActiveUsers,
+    updateUserProfile,
+    getDeactivatedUsers,
     deactivateUser
   }

@@ -43,6 +43,9 @@ router.delete('/tasks/:id', auth, tasks.deleteTask);
 /* User */
 router.get('/users', users.getUsers);
 router.get('/users/:id', users.getUser);
+router.get('/tasks/deactivated', auth, users.getDeactivatedUsers);
+router.get('/tasks/activated', auth, users.getActiveUsers);
+router.get('/tasks/:id/profile', auth, users.updateUserProfile);
 router.put('/users/:id/deactivate', users.deactivateUser);
 
 module.exports = router;
