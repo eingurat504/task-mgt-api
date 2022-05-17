@@ -140,9 +140,20 @@ async function getUsers(req, res) {
  * @param {*} req 
  * @param {*} res
  * 
- * @api api/users/{user} 
+ * @api api/users/{user}/deactivate
  */
 async function deactivateUser(req, res) {
+
+    await check('status').notEmpty()
+    .withMessage('Status is Required').run(req);
+
+    const result = validationResult(req);
+
+    if (!result.isEmpty()) {
+        return res.status(422).json({ 
+        errors: result.array() 
+        });
+    }
 
     const id = req.params.id;
   
@@ -167,8 +178,7 @@ async function deactivateUser(req, res) {
         });
   
   }
-
-
+  
   module.exports = {
     getUsers,
     getUser,
