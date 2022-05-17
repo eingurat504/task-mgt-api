@@ -28,6 +28,28 @@ async function getUsers(req, res) {
 }
 
 /**
+ * Get active users
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api  api/users/active
+ */
+ async function getActiveUsers(req, res) { 
+
+  User.findAll({ where: { status: 'active' }  })
+    .then(data => {
+      res.send({'active_users': data });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving users."
+      });
+    });
+}
+
+/**
  * Get User details
  * 
  * @param {*} req 
@@ -57,12 +79,12 @@ async function getUsers(req, res) {
   }
 
   /**
- * Complete Task
+ * Update user profile
  * 
  * @param {*} req 
  * @param {*} res 
  * 
- * @api api/tasks/{task}/complete
+ * @api api/users/{user}/profile
  */
  async function updateUserProfile(req, res) {
 
@@ -89,8 +111,6 @@ async function getUsers(req, res) {
     });
 
 }
-
-
 
   /**
  * Deactivate user
