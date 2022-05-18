@@ -3,7 +3,13 @@ const { Model } = require('sequelize');
 module.exports = function(sequelize, Sequelize){
     
     class User extends Model{
+        static associate({Project}) {
+            this.hasMany(Project, {foreignKey: 'userId',  as: 'api_projects' })
+        }
 
+        static associate({Task}) {
+            this.hasMany(Task, {foreignKey: [ 'createdBy','assignedTo' ],  as: 'api_tasks' })
+        }
     };
     
     User.init({

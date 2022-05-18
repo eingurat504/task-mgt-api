@@ -4,7 +4,6 @@ module.exports = function(sequelize, Sequelize){
     
     class Task extends Model {
         static associate({Project}) {
-            // define association here
             this.belongsTo(Project, {foreignKey: 'projectId', as: 'api_tasks' })
         }
     };
@@ -43,11 +42,11 @@ module.exports = function(sequelize, Sequelize){
             type: Sequelize.TEXT,
             noEmpty:true
         },
-        created_by: {
+        createdBy: {
             type:Sequelize.STRING,
             noEmpty:true
         },
-        assigned_to: {
+        assignedTo: {
             type:Sequelize.INTEGER,
             noEmpty:true
         }
