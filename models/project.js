@@ -8,6 +8,9 @@ module.exports = function(sequelize, Sequelize){
             // define association here
             this.belongsTo(User, {foreignKey: 'userId', as: 'api_users' })
         }
+        static associate({Task}) {
+            this.hasMany(Task, {foreignKey: 'projectId',  as: 'api_tasks' })
+        }
     };
 
     Project.init({
