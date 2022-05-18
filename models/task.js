@@ -6,6 +6,9 @@ module.exports = function(sequelize, Sequelize){
         static associate({Project}) {
             this.belongsTo(Project, {foreignKey: 'projectId', as: 'api_tasks' })
         }
+        static associate({User}) {
+            this.belongsTo(User, {foreignKey: ['createdBy','assignedTo'], as: 'api_tasks' })
+        }
     };
     
     Task.init({
