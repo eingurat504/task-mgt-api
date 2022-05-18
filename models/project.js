@@ -1,5 +1,7 @@
 'use strict'
 const { Model } = require('sequelize');
+const db = require("../models");
+const User = db.users;
 
 module.exports = function(sequelize, Sequelize){
 
@@ -20,7 +22,11 @@ module.exports = function(sequelize, Sequelize){
         },
         userId: {
             allowNull: false,
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            references: {
+                model: User,
+                key: 'id'
+            }
         },
         name: {
             type: Sequelize.STRING,
