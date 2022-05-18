@@ -1,5 +1,12 @@
+const { Model } = require('sequelize');
+
 module.exports = function(sequelize, Sequelize){
-    var User = sequelize.define('api_user', {
+    
+    class User extends Model{
+
+    };
+    
+    User.init({
         id: {
             autoIncrement: true,
             primaryKey: true,
@@ -36,6 +43,10 @@ module.exports = function(sequelize, Sequelize){
             type:Sequelize.ENUM('active','inactive'),
             defaultValue: 'active'
         }
+    },{
+        sequelize,
+        tableName: 'api_users',
+        modelName: 'User'
     });
 
     return User;

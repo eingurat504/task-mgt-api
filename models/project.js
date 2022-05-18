@@ -1,5 +1,12 @@
+const { Model } = require('sequelize');
+
 module.exports = function(sequelize, Sequelize){
-    var Project = sequelize.define('api_project', {
+
+    class Project extends Model{
+
+    };
+
+    Project.init({
         id: {
             autoIncrement: true,
             primaryKey: true,
@@ -17,6 +24,10 @@ module.exports = function(sequelize, Sequelize){
             type: Sequelize.STRING,
             noEmpty:true
         }
+    },{
+        sequelize,
+        tableName: 'api_projects',
+        modelName: 'Project'
     });
 
     return Project;
