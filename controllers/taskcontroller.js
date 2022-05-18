@@ -15,7 +15,7 @@ const Project = db.projects;
  */
 async function getTasks(req, res) { 
 
-  Task.findAll()
+  Task.findAll({include:'users'})
     .then(data => {
       res.send({'tasks': data });
     })
