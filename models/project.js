@@ -1,15 +1,16 @@
 'use strict'
 const { Model } = require('sequelize');
+const db = require("../models");
+const User = db.users;
 
 module.exports = function(sequelize, Sequelize){
 
     class Project extends Model{
         static associate({User}) {
-            // define association here
-            this.belongsTo(User, {foreignKey: 'userId', as: 'api_users' })
+            this.belongsTo(User, {foreignKey: 'userId', as: 'users' })
         }
         static associate({Task}) {
-            this.hasMany(Task, {foreignKey: 'projectId',  as: 'api_tasks' })
+            this.hasMany(Task, {foreignKey: 'projectId',  as: 'tasks' })
         }
     };
 
@@ -21,7 +22,11 @@ module.exports = function(sequelize, Sequelize){
         },
         userId: {
             allowNull: false,
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            references: {
+                model: User,
+                key: 'id'
+            }
         },
         name: {
             type: Sequelize.STRING,
@@ -42,4 +47,4 @@ module.exports = function(sequelize, Sequelize){
     });
 
     return Project;
-}
+};

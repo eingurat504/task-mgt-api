@@ -13,8 +13,7 @@ const Project = db.projects;
  * @api  api/projects
  */
 async function getProjects(req, res) { 
-
-  Project.findAll()
+  Project.findAll({include:'users'})
     .then(data => {
       res.send({'projects': data });
     })
