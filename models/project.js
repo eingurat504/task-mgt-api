@@ -1,15 +1,26 @@
+'use strict'
 const { Model } = require('sequelize');
 
 module.exports = function(sequelize, Sequelize){
 
     class Project extends Model{
-
+        static associate({User}) {
+            // define association here
+            this.belongsTo(User, {foreignKey: 'userId', as: 'api_users' })
+        }
+        static associate({Task}) {
+            this.hasMany(Task, {foreignKey: 'projectId',  as: 'api_tasks' })
+        }
     };
 
     Project.init({
         id: {
             autoIncrement: true,
             primaryKey: true,
+            type: Sequelize.INTEGER
+        },
+        userId: {
+            allowNull: false,
             type: Sequelize.INTEGER
         },
         name: {

@@ -3,8 +3,12 @@ const { Model } = require('sequelize');
 module.exports = function(sequelize, Sequelize){
     
     class Task extends Model {
-
-
+        static associate({Project}) {
+            this.belongsTo(Project, {foreignKey: 'projectId', as: 'api_tasks' })
+        }
+        static associate({User}) {
+            this.belongsTo(User, {foreignKey: ['createdBy','assignedTo'], as: 'api_tasks' })
+        }
     };
     
     Task.init({
@@ -13,7 +17,7 @@ module.exports = function(sequelize, Sequelize){
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        project_id: {
+        projectId: {
             type: Sequelize.INTEGER,
             noEmpty: true
         },
@@ -41,11 +45,11 @@ module.exports = function(sequelize, Sequelize){
             type: Sequelize.TEXT,
             noEmpty:true
         },
-        created_by: {
+        createdBy: {
             type:Sequelize.STRING,
             noEmpty:true
         },
-        assigned_to: {
+        assignedTo: {
             type:Sequelize.INTEGER,
             noEmpty:true
         }
