@@ -3,8 +3,10 @@ const { Model } = require('sequelize');
 module.exports = function(sequelize, Sequelize){
     
     class Task extends Model {
-
-
+        static associate({Project}) {
+            // define association here
+            this.belongsTo(Project, {foreignKey: 'projectId', as: 'api_tasks' })
+        }
     };
     
     Task.init({
@@ -13,7 +15,7 @@ module.exports = function(sequelize, Sequelize){
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        project_id: {
+        projectId: {
             type: Sequelize.INTEGER,
             noEmpty: true
         },
