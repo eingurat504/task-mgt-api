@@ -124,6 +124,7 @@ async function registerProject(req, res) {
   
   const data = {
     name: req.body.name,
+    userId: req.body.userId,
     status: req.body.status,
     description: req.body.description,
   };
