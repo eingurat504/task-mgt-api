@@ -13,7 +13,7 @@ const Project = db.projects;
  * @api  api/projects
  */
 async function getProjects(req, res) { 
-  Project.findAll({include:'users'})
+  Project.findAll({includes:'users'})
     .then(data => {
       res.send({'projects': data });
     })
@@ -124,6 +124,7 @@ async function registerProject(req, res) {
   
   const data = {
     name: req.body.name,
+    userId: req.body.userId,
     status: req.body.status,
     description: req.body.description,
   };

@@ -23,10 +23,8 @@ module.exports = function(sequelize, Sequelize){
         userId: {
             allowNull: false,
             type: Sequelize.INTEGER,
-            references: {
-                model: User,
-                key: 'id'
-            }
+            references: User,
+            referencesKey: 'id'
         },
         name: {
             type: Sequelize.STRING,
