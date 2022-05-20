@@ -1,4 +1,6 @@
 const { Model } = require('sequelize');
+const db = require("../models");
+const Project = db.projects;
 
 module.exports = function(sequelize, Sequelize){
     
@@ -19,7 +21,9 @@ module.exports = function(sequelize, Sequelize){
         },
         projectId: {
             type: Sequelize.INTEGER,
-            noEmpty: true
+            noEmpty: true,
+            references: Project,
+            referencesKey: 'id'
         },
         name: {
             type: Sequelize.STRING,
