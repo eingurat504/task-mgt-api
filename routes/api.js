@@ -43,7 +43,7 @@ router.delete('/tasks/:id', auth, tasks.deleteTask);
 router.get('/users', users.getUsers);
 router.get('/users/deactivated', auth, users.getDeactivatedUsers);
 router.get('/users/active', auth, users.getActiveUsers);
-router.get('/users/:id', users.getUser);
+router.get('/users/:id', auth, users.getUser);
 router.put('/users/:id/profile', auth, users.updateUserProfile);
 router.put('/users/:id/deactivate', auth, users.deactivateUser);
 router.delete('/users/:id', auth, users.deleteUser);
