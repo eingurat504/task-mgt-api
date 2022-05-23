@@ -12,6 +12,7 @@ router.get('/',api.index);
 /* Auth */
 router.post('/auth/login', authenticate.login);
 router.post('/auth/register', authenticate.register);
+router.get('/logout', auth, authenticate.logout);
 
 /* project */
 router.get('/projects', auth, projects.getProjects);

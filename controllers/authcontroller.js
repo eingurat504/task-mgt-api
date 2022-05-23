@@ -53,7 +53,9 @@ async function login(req, res) {
           // save user token
           user.token = token;
     
-          res.status(200).json({user,token});
+          // res.status(200).json({user,token});
+              // return the information including token as JSON
+          res.status(200).send({ auth: true, user: user, token: token });
       }
 
     } catch (err) {
@@ -160,7 +162,22 @@ async function login(req, res) {
           
  }
 
+ /**
+ * logout 
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns
+ * @api api/auth/login 
+ */
+async function logout(req, res) {
+
+  res.status(200).send({ auth: false, token: null });
+   
+}
+
 module.exports = {
 login,
-register
+register,
+logout
 }
