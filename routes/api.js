@@ -12,6 +12,7 @@ router.get('/',api.index);
 /* Auth */
 router.post('/auth/login', authenticate.login);
 router.post('/auth/register', authenticate.register);
+router.get('/logout', auth, authenticate.logout);
 
 /* project */
 router.get('/projects', auth, projects.getProjects);
@@ -43,6 +44,7 @@ router.delete('/tasks/:id', auth, tasks.deleteTask);
 router.get('/users', users.getUsers);
 router.get('/users/deactivated', auth, users.getDeactivatedUsers);
 router.get('/users/active', auth, users.getActiveUsers);
+router.get('/users/me', auth, users.getProfile);
 router.get('/users/:id', auth, users.getUser);
 router.put('/users/:id/profile', auth, users.updateUserProfile);
 router.put('/users/:id/deactivate', auth, users.deactivateUser);
