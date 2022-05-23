@@ -211,10 +211,50 @@ async function deleteUser(req, res) {
     });
 }
 
+ /**
+ * Delete User
+ * 
+ * @param {*} req 
+ * @param {*} res
+ * 
+ * @api api/users/{user} 
+ */
+  async function getProfile(req, res) {
+
+    const id = req.params.id;
+
+    User.findByPk(id, { password: 0 }, function (err, user) {
+      if (err) return res.status(500).send("There was a problem finding the user.");
+      if (!user) return res.status(404).send("No user found.");
+      res.status(200).send(user);
+    });
+  
+    // User.destroy({
+    //   where: { id: id }
+    // })
+    //   .then(num => {
+    //     if (num == 1) {
+    //       res.send({
+    //         message: "User was deleted successfully!"
+    //       });
+    //     } else {
+    //       res.send({
+    //         message: `Cannot delete User with id=${id}. Maybe User was not found!`
+    //       });
+    //     }
+    //   })
+    //   .catch(err => {
+    //     res.status(500).send({
+    //       message: "Could not delete User with id=" + id
+    //     });
+    //   });
+  }
+
   module.exports = {
     getUsers,
     getUser,
     getActiveUsers,
+    getProfile,
     updateUserProfile,
     getDeactivatedUsers,
     deactivateUser,
