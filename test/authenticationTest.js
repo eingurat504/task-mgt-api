@@ -9,7 +9,7 @@ const User = db.users;
   
   describe('#find()', function () {
     it('responds with matching records', async function () {
-      const users = await db.findAll({type: 'User'});
+      const users = await User.findAll({type: 'User'});
       users.should.have.length(3);
     });
   });

@@ -1,6 +1,6 @@
 const assert = require('assert');
 const db = require("../models");
-const User = db.users;
+const Project = db.projects;
 
 // beforeEach(async function () {
 //     await db.clear();
@@ -9,16 +9,16 @@ const User = db.users;
   
   describe('#find()', function () {
     it('responds with matching records', async function () {
-      const users = await db.findAll({type: 'User'});
-      users.should.have.length(3);
+      const projects = await Project.findAll({type: 'Project'});
+      projects.should.have.length(3);
     });
   });
 
-  describe('User', function () {
+  describe('Project', function () {
     describe('#save()', function () {
       it('should save without error', function (done) {
-        var user = new User('Luna');
-        user.save();
+        var project = new Project('Luna');
+        project.save();
       });
     });
   });
