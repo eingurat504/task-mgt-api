@@ -1,24 +1,63 @@
 const assert = require('assert');
 const db = require("../models");
-const User = db.users;
+const Task = db.tasks;
 
-// beforeEach(async function () {
-//     await db.clear();
-//     await db.save([tobi, loki, jane]);
-//   });
+
+describe('api', function () {
+   
+  /**
+   * All Tasks.
+   * @test 
+   */
+  describe('GET /api/tasks getTasks', function () {
+    it('respond with an array of tasks', function () {
+      const tasks = Task.findAll();
+      assert.ok(true);
+    });
+  });
+
+  /**
+   * All Pending Tasks.
+   * @test 
+   */
+  describe('GET /api/tasks/pending pendingTasks', function () {
+    it('respond with an array of deactivated tasks', function () {
+      const tasks = Task.findAll();
+      assert.ok(true);
+    });
+  });
+
+    /**
+   * All Accepted Tasks.
+   * @test 
+   */
+  describe('GET /api/tasks/accepted getAcceptedTasks', function () {
+    it('respond with an array of accepted tasks', function () {
+      const tasks = Task.findAll();
+      assert.ok(true);
+    });
+  });
+
+  /**
+   * All Completed Tasks.
+   * @test 
+   */
+  describe('GET /api/tasks/completed getCompletedTasks', function () {
+    it('respond with an array of Completed Tasks', function () {
+      const tasks = Task.findAll();
+      assert.ok(true);
+    });
+  });
+
+  /**
+   * All Rejected Tasks
+   */
+  describe('GET /api/tasks/rejected getRejectedTasks', function () {
+    it('respond with an array of Rejected Tasks', function () {
+      const tasks = Task.findAll();
+      assert.ok(true);
+    });
+  });
+
+});
   
-  describe('#find()', function () {
-    it('responds with matching records', async function () {
-      const users = await db.findAll({type: 'User'});
-      users.should.have.length(3);
-    });
-  });
-
-  describe('User', function () {
-    describe('#save()', function () {
-      it('should save without error', function (done) {
-        var user = new User('Luna');
-        user.save();
-      });
-    });
-  });

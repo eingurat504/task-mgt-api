@@ -42,7 +42,14 @@ describe('api', function () {
     });
   });
 
-  describe('GET /api/users/me getProfile', function () {
+  describe('GET /api/users/reviewed getProfile', function () {
+    it('respond with an array of user profile', function () {
+      const users = User.findAll();
+      assert.ok(true);
+    });
+  });
+
+  describe('GET /api/users/reviewed getProfile', function () {
     it('respond with an array of user profile', function () {
       const users = User.findAll();
       assert.ok(true);
