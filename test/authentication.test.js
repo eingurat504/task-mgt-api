@@ -7,18 +7,18 @@ const User = db.users;
 //     await db.save([tobi, loki, jane]);
 //   });
   
-  describe('#find()', function () {
-    it('responds with matching records', async function () {
-      const users = await User.findAll({type: 'User'});
-      users.should.have.length(3);
-    });
-  });
+  // describe('#find()', function () {
+  //   it('responds with matching records', async function () {
+  //     const users = await User.findAll({type: 'User'});
+  //     users.should.have.length(3);
+  //   });
+  // });
 
-  describe('User', function () {
-    describe('#save()', function () {
-      it('should save without error', function (done) {
-        var user = new User('Luna');
-        user.save();
-      });
-    });
-  });
+  // describe('User', function () {
+  //   describe('#save()', function () {
+  //     it('should save without error', function (done) {
+  //       var user = new User('Luna');
+  //       user.save();
+  //     });
+  //   });
+  // });

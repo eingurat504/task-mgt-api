@@ -30,28 +30,14 @@ describe('api', function () {
 
   describe('GET /api/users/deactivated deactivatedUsers', function () {
     it('respond with an array of deactivated users', function () {
-      const users = User.findAll();
+      const users = User.findAll({ where: { status: 'inactive' }  });
       assert.ok(true);
     });
   });
 
   describe('GET /api/users/active getActiveUsers', function () {
     it('respond with an array of active users', function () {
-      const users = User.findAll();
-      assert.ok(true);
-    });
-  });
-
-  describe('GET /api/users/reviewed getProfile', function () {
-    it('respond with an array of user profile', function () {
-      const users = User.findAll();
-      assert.ok(true);
-    });
-  });
-
-  describe('GET /api/users/reviewed getProfile', function () {
-    it('respond with an array of user profile', function () {
-      const users = User.findAll();
+      const users = User.findAll({ where: { status: 'active' }  });
       assert.ok(true);
     });
   });
