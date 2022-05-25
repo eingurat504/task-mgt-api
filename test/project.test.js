@@ -18,7 +18,7 @@ const Project = db.projects;
   //   });
   // });
 
-describe('api', function () {
+describe('Project Unit Tests', function () {
    
   /**
    * All Projects
@@ -50,6 +50,10 @@ describe('api', function () {
     });
   });
 
+  /**
+   * Register Project
+   * 
+   */
   describe("POST /api/projects registerProject", function () {
     it("should successfully add a project", async function () {
       const data ={
@@ -64,7 +68,6 @@ describe('api', function () {
       assert.ok(true);
 
     });
-    it("should throw an error if the number of projects with the same profileId is not zero", async function () {});
   });
 
 });
