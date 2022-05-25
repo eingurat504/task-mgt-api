@@ -19,7 +19,7 @@ const User = db.users;
   //   });
   // });
 
-describe('api', function () {
+describe('User Unit Tests', function () {
    
   describe('GET /api/users getUsers', function () {
     it('respond with an array of users', function () {
