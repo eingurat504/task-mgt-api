@@ -18,7 +18,7 @@ const Project = db.projects;
   //   });
   // });
 
-describe('api', function () {
+describe('Project Unit Tests', function () {
    
   /**
    * All Projects
@@ -35,7 +35,7 @@ describe('api', function () {
    */
   describe('GET /api/projects/pending pendingProjects', function () {
     it('respond with an array of pending projects', function () {
-      const projects = Project.findAll();
+      const projects = Project.findAll({ where: { status: 'pending' }  });
       assert.ok(true);
     });
   });
@@ -44,9 +44,29 @@ describe('api', function () {
    * All Completed Projects
    */
   describe('GET /api/projects/completed getcompletedProjects', function () {
-    it('respond with an array of completed users', function () {
-      const projects = Project.findAll();
+    it('respond with an array of completed projects', function () {
+      const projects = Project.findAll({ where: { status: 'completed' }  });
       assert.ok(true);
+    });
+  });
+
+  /**
+   * Register Project
+   * 
+   */
+  describe("POST /api/projects registerProject", function () {
+    it("should successfully add a project", async function () {
+      const data ={
+        name: 'RECTS',
+        userId: 1,
+        status: 1,
+        description: 'RECTS description',
+      }
+  
+      const returnedProject = Project.create(data);
+
+      assert.ok(true);
+
     });
   });
 

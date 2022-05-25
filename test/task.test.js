@@ -3,7 +3,7 @@ const db = require("../models");
 const Task = db.tasks;
 
 
-describe('api', function () {
+describe('Task Unit Tests', function () {
    
   /**
    * All Tasks.
@@ -21,8 +21,8 @@ describe('api', function () {
    * @test 
    */
   describe('GET /api/tasks/pending pendingTasks', function () {
-    it('respond with an array of deactivated tasks', function () {
-      const tasks = Task.findAll();
+    it('respond with an array of pending tasks', function () {
+      const tasks = Task.findAll({ where: { status: 'pending' }  });
       assert.ok(true);
     });
   });
@@ -33,7 +33,7 @@ describe('api', function () {
    */
   describe('GET /api/tasks/accepted getAcceptedTasks', function () {
     it('respond with an array of accepted tasks', function () {
-      const tasks = Task.findAll();
+      const tasks = Task.findAll({ where: { status: 'accepted' }  });
       assert.ok(true);
     });
   });
@@ -44,7 +44,7 @@ describe('api', function () {
    */
   describe('GET /api/tasks/completed getCompletedTasks', function () {
     it('respond with an array of Completed Tasks', function () {
-      const tasks = Task.findAll();
+      const tasks = Task.findAll({ where: { status: 'completed' }  });
       assert.ok(true);
     });
   });
@@ -54,8 +54,29 @@ describe('api', function () {
    */
   describe('GET /api/tasks/rejected getRejectedTasks', function () {
     it('respond with an array of Rejected Tasks', function () {
-      const tasks = Task.findAll();
+      const tasks = Task.findAll({ where: { status: 'rejected' }  });
       assert.ok(true);
+    });
+  });
+
+  /**
+   * 
+   */
+  describe("POST /api/tasks registerTask", function () {
+    it("should successfully add a task", async function () {
+
+      const data ={
+        name: 'Error handling',
+        project_id: 1,
+        status: 1,
+        description: "form validation and error Handling ",
+        remarks: "Imediately after shift",
+      }
+  
+      const returnedTask = Task.create(data);
+
+      assert.ok(true);
+
     });
   });
 

@@ -212,7 +212,7 @@ async function deleteUser(req, res) {
 }
 
  /**
- * Delete User
+ * Get User Profile
  * 
  * @param {*} req 
  * @param {*} res
