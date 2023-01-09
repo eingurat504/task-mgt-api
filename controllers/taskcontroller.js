@@ -141,6 +141,28 @@ async function getTasks(req, res) {
 }
 
 /**
+ * Get Cancelled tasks
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api  api/tasks/cancelled
+ */
+ async function getCancelledTasks(req, res) { 
+
+  Task.findAll({ where: { status: 'cancelled' }  })
+    .then(data => {
+      res.send({'cancelled_tasks': data });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving cancelled tasks."
+      });
+    });
+}
+
+/**
  * Get Task details
  * 
  * @param {*} req 
@@ -353,6 +375,40 @@ async function registerTask(req, res) {
 }
 
 /**
+ * Cancel Task
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api api/tasks/{task}/complete
+ */
+ async function cancelTask(req, res) {
+
+  const id = req.params.id;
+
+  Task.update(req.body, {
+    where: { id: id, status: 'cancelled' }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "task was cancelled successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot cancel task with id=${id}. Maybe task was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error cancelling task with id=" + id
+      });
+    });
+
+}
+
+/**
  * Update Task
  * 
  * @param {*} req 
@@ -460,11 +516,13 @@ module.exports = {
   getCompletedTasks,
   getRejectedTasks,
   getReviewedTasks,
+  getCancelledTasks,
   getPendingTasks,
   getAcceptedTasks,
   updateTask,
   acceptTask,
   completeTask,
+  cancelTask,
   reviewTask,
   rejectTask,
   deleteTask

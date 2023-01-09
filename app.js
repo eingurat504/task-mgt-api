@@ -2,8 +2,6 @@ const client = require('./config/config.js');
 const express = require('express');
 const app = express();
 
-// const sequelize = require('sequelize');
-
 const apiRouter = require('./routes/api');
 
 app.use(express.urlencoded({ extended: true }));
