@@ -30,6 +30,7 @@ router.get('/tasks/pending', auth, tasks.getPendingTasks);
 router.get('/tasks/reviewed', auth, tasks.getReviewedTasks);
 router.get('/tasks/rejected', auth, tasks.getRejectedTasks);
 router.get('/tasks/completed', auth, tasks.getCompletedTasks);
+router.get('/tasks/cancelled', auth, tasks.getCancelledTasks);
 router.get('/tasks/accepted',auth, tasks.getAcceptedTasks);
 router.get('/tasks/:id', auth, tasks.getTask);
 router.post('/tasks', auth, tasks.registerTask);
@@ -38,6 +39,7 @@ router.put('/tasks/:id/accept', auth, tasks.acceptTask);
 router.put('/tasks/:id/review', auth, tasks.reviewTask);
 router.put('/tasks/:id/reject', auth, tasks.rejectTask);
 router.put('/tasks/:id/complete', auth, tasks.completeTask);
+router.put('/tasks/:id/cancel', auth, tasks.cancelTask);
 router.delete('/tasks/:id', auth, tasks.deleteTask);
 
 /* User */

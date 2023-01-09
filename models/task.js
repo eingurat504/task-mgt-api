@@ -30,7 +30,7 @@ module.exports = function(sequelize, Sequelize){
             noEmpty: true
         },
         status: {
-            type:Sequelize.ENUM('completed','pending','accepted','rejected','reviewed','deleted'),
+            type:Sequelize.ENUM('completed','pending','accepted', 'cancelled', 'rejected','reviewed','deleted'),
             defaultValue: 'pending'
         },
         priority_level: {
