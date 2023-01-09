@@ -21,7 +21,7 @@ async function getUsers(req, res) {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tasks."
+          err.message || "Some error occurred while retrieving users."
       });
     });
 
@@ -44,7 +44,7 @@ async function getUsers(req, res) {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving users."
+          err.message || "Some error occurred while retrieving active users."
       });
     });
 }
@@ -66,7 +66,7 @@ async function getUsers(req, res) {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving users."
+          err.message || "Some error occurred while retrieving decativated users."
       });
     });
 }
@@ -228,26 +228,7 @@ async function deleteUser(req, res) {
       if (!user) return res.status(404).send("No user found.");
       res.status(200).send(user);
     });
-  
-    // User.destroy({
-    //   where: { id: id }
-    // })
-    //   .then(num => {
-    //     if (num == 1) {
-    //       res.send({
-    //         message: "User was deleted successfully!"
-    //       });
-    //     } else {
-    //       res.send({
-    //         message: `Cannot delete User with id=${id}. Maybe User was not found!`
-    //       });
-    //     }
-    //   })
-    //   .catch(err => {
-    //     res.status(500).send({
-    //       message: "Could not delete User with id=" + id
-    //     });
-    //   });
+ 
   }
 
   module.exports = {
