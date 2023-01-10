@@ -197,6 +197,40 @@ async function registerProject(req, res) {
 }
 
 /**
+ * Cancel Project
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api api/projects/{project}/cancel
+ */
+ async function cancelProject(req, res) {
+
+  const id = req.params.id;
+
+  Project.update(req.body, {
+    where: { id: id, status: 'pending' }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Project was cancelled successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update Project with id=${id}. Maybe Project was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Project with id=" + id
+      });
+    });
+
+}
+
+/**
  * Update Project
  * 
  * @param {*} req 
@@ -272,5 +306,6 @@ module.exports = {
   getPendingProjects,
   updateProject,
   completeProject,
+  cancelProject,
   deleteProject
 }

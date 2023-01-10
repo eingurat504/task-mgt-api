@@ -22,6 +22,7 @@ router.get('/projects/:id', auth, projects.getProject);
 router.post('/projects', auth, projects.registerProject);
 router.put('/projects/:id', auth, projects.updateProject);
 router.put('/projects/:id/complete', auth,  projects.completeProject);
+router.put('/projects/:id/cancel', auth, projects.cancelProject);
 router.delete('/projects/:id', auth, projects.deleteProject);
 
 /* Task */
