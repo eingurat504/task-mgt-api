@@ -3,9 +3,9 @@ const { Model } = require('sequelize');
 module.exports = function(sequelize, Sequelize){
     
     class Comment extends Model{
-        static associate({Task}) {
-            this.hasMany(Task, {foreignKey: [ 'createdBy','assignedTo' ],  as: 'tasks' })
-        }
+        // static associate({Task}) {
+        //     this.hasMany(Task, {foreignKey: [ 'createdBy','assignedTo' ],  as: 'tasks' })
+        // }
     };
     
     Comment.init({
