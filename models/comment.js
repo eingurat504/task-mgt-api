@@ -1,6 +1,7 @@
 const { Model } = require('sequelize');
 const db = require("../models");
 const Task = db.comments;
+const User = db.users;
 
 
 module.exports = function(sequelize, Sequelize){
@@ -9,6 +10,9 @@ module.exports = function(sequelize, Sequelize){
          static associate({Task}) {
              this.hasMany(Task, {foreignKey: [ 'taskId' ],  as: 'tasks' })
          }
+         static associate({User}) {
+            this.hasMany(User, {foreignKey: [ 'userId' ],  as: 'users' })
+        }
     };
     
     Comment.init({
@@ -23,13 +27,19 @@ module.exports = function(sequelize, Sequelize){
             references: Task,
             referencesKey: 'id'
         },
-        comment: {
-            type: Sequelize.STRING
-        },
         status: {
             type:Sequelize.ENUM('active','inactive'),
             defaultValue: 'active'
-        }
+        },
+        comment: {
+            type: Sequelize.STRING
+        },
+        userId: {
+            type: Sequelize.INTEGER,
+            noEmpty: true,
+            references: User,
+            referencesKey: 'id'
+        },
     },{
         sequelize,
         tableName: 'api_comments',
