@@ -1,11 +1,14 @@
 const { Model } = require('sequelize');
+const db = require("../models");
+const Task = db.comments;
+
 
 module.exports = function(sequelize, Sequelize){
     
     class Comment extends Model{
-        // static associate({Task}) {
-        //     this.hasMany(Task, {foreignKey: [ 'createdBy','assignedTo' ],  as: 'tasks' })
-        // }
+         static associate({Task}) {
+             this.hasMany(Task, {foreignKey: [ 'taskId' ],  as: 'tasks' })
+         }
     };
     
     Comment.init({
@@ -13,6 +16,12 @@ module.exports = function(sequelize, Sequelize){
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
+        },
+        taskId: {
+            type: Sequelize.INTEGER,
+            noEmpty: true,
+            references: Task,
+            referencesKey: 'id'
         },
         comment: {
             type: Sequelize.STRING
