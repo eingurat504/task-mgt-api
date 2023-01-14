@@ -90,6 +90,100 @@ async function getComment(req, res) {
 }
 
 /**
+ * Register a new Comment
+ * 
+ * @param {*} req 
+ * @param {*} res
+ * 
+ * @api api/comments 
+ */
+ async function registerComment(req, res) {
+
+  await check('comment').notEmpty()
+  .withMessage('Comment is Required').run(req);
+
+  const result = validationResult(req);
+
+  if (!result.isEmpty()) {
+      return res.status(422).json({ 
+      errors: result.array() 
+      });
+  }
+
+const data = {
+  userId: req.body.userId,
+  status: req.body.status,
+  comment: req.body.comment,
+  taskId: req.body.taskId,
+};
+
+// Validate if project already exists
+// let comment = await Comment.findOne({ where: {
+//   name : project_name
+// } });
+
+// if (project) {
+//   return res.status(200).json({
+//     errors: [
+//       {
+//         name: comment.name,
+//         msg: "The project already exists"
+//       },
+//     ],
+//   });
+// }
+
+// Save Comment in the database
+Comment.create(data)
+  .then(data => {
+    res.status(201).send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while creating the Comment."
+    });
+  });
+
+}
+
+
+
+/**
+ * Update Comment
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api api/comments/{comment}
+ */
+ async function updateComment(req, res) {
+
+  const id = req.params.id;
+
+  Comment.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Comment was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update Comment with id=${id}. Maybe Comment was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Comment with id=" + id
+      });
+    });
+
+}
+
+/**
  * Delete Comment
  * 
  * @param {*} req 
@@ -117,7 +211,7 @@ async function deleteComment(req, res) {
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete Task with id=" + id
+        message: "Could not delete Comment with id=" + id
       });
     });
 
@@ -127,5 +221,7 @@ module.exports = {
   getComments,
   getComment,
   cancelComment,
+  updateComment,
+  registerComment,
   deleteComment
 }
