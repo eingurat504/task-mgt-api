@@ -3,6 +3,7 @@ const router = express();
 const api = require('../controllers/indexcontroller.js');
 const authenticate = require('../controllers/authcontroller.js');
 const projects = require('../controllers/projectcontroller.js');
+const comments = require('../controllers/commentcontroller.js');
 const tasks = require('../controllers/taskcontroller.js');
 const users = require('../controllers/usercontroller.js');
 const auth = require("../middleware/auth");
@@ -40,8 +41,15 @@ router.put('/tasks/:id/accept', auth, tasks.acceptTask);
 router.put('/tasks/:id/review', auth, tasks.reviewTask);
 router.put('/tasks/:id/reject', auth, tasks.rejectTask);
 router.put('/tasks/:id/complete', auth, tasks.completeTask);
-router.put('/tasks/:id/cancel', auth, tasks.cancelTask);
+router.put('/tasks/:id/comments', auth, tasks.commentTask);
 router.delete('/tasks/:id', auth, tasks.deleteTask);
+
+/* project */
+router.get('/comments', auth, comments.getComments);
+router.get('/comments/:id', auth, comments.getComment);
+router.post('/comments', auth, comments.registerComment);
+router.put('/comments/:id', auth, comments.updateComment);
+router.put('/comments/:id/cancel', auth, comments.cancelComment);
 
 /* User */
 router.get('/users', users.getUsers);
