@@ -117,22 +117,6 @@ const data = {
   taskId: req.body.taskId,
 };
 
-// Validate if project already exists
-// let comment = await Comment.findOne({ where: {
-//   name : project_name
-// } });
-
-// if (project) {
-//   return res.status(200).json({
-//     errors: [
-//       {
-//         name: comment.name,
-//         msg: "The project already exists"
-//       },
-//     ],
-//   });
-// }
-
 // Save Comment in the database
 Comment.create(data)
   .then(data => {
@@ -146,8 +130,6 @@ Comment.create(data)
   });
 
 }
-
-
 
 /**
  * Update Comment

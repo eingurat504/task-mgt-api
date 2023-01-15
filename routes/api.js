@@ -41,7 +41,6 @@ router.put('/tasks/:id/accept', auth, tasks.acceptTask);
 router.put('/tasks/:id/review', auth, tasks.reviewTask);
 router.put('/tasks/:id/reject', auth, tasks.rejectTask);
 router.put('/tasks/:id/complete', auth, tasks.completeTask);
-router.put('/tasks/:id/comments', auth, tasks.commentTask);
 router.delete('/tasks/:id', auth, tasks.deleteTask);
 
 /* project */
