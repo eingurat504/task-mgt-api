@@ -475,40 +475,6 @@ async function updateTask(req, res) {
     });
 }
 
-
-/**
- * Reject task
- * 
- * @param {*} req 
- * @param {*} res
- * 
- * @api api/tasks/{task}/reject 
- */
- async function commentTask(req, res) {
-
-  const id = req.params.id;
-
-  Task.update(req.body, {
-    where: { id: id, status: 'accepted' }
-  })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "task was rejected successfully."
-        });
-      } else {
-        res.send({
-          message: `Cannot update task with id=${id}. Maybe task was not found or req.body is empty!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error updating task with id=" + id
-      });
-    });
-}
-
 /**
  * Delete task
  * 
