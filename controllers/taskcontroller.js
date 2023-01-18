@@ -217,9 +217,10 @@ async function registerTask(req, res) {
 
   const data = {
     name: req.body.name,
-    project_id: req.body.project_id,
+    projectId: req.body.project_id,
     status: req.body.status,
     description: req.body.description,
+    createdBy: req.body.user_id,
     remarks: req.body.remarks,
   };
 
