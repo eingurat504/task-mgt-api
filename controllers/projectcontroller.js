@@ -3,6 +3,7 @@ const { check, validationResult } = require('express-validator');
 const app = express();
 const db = require("../models");
 const Project = db.projects;
+const User = db.users;
 
 /**
  * Get Projects
@@ -122,13 +123,6 @@ async function registerProject(req, res) {
         });
     }
   
-  const data = {
-    name: req.body.name,
-    userId: req.body.userId,
-    status: req.body.status,
-    description: req.body.description,
-  };
-
   // Get project input   
   const project_name = req.body.name;
 
@@ -147,6 +141,32 @@ async function registerProject(req, res) {
       ],
     });
   }
+
+  // Get user input   
+  const user_id = req.body.userId;
+
+  // Validate if user already exists
+  let user = await User.findOne({ where: {
+    id : user_id
+  } });
+
+  if (!user) {
+    return res.status(422).json({
+      errors: [
+        {
+          name: user.id,
+          msg: "Unknown User"
+        },
+      ],
+    });
+  }
+
+  const data = {
+    name: req.body.name,
+    userId: user.id,
+    status: req.body.status,
+    description: req.body.description,
+  };
 
   // Save Project in the database
   Project.create(data)
