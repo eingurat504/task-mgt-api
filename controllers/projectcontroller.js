@@ -150,15 +150,17 @@ async function registerProject(req, res) {
     id : user_id
   } });
 
-  if (!user) {
+  if (user) {
     return res.status(422).json({
       errors: [
         {
           name: user.id,
-          msg: "Unknown User"
+          msg: "User exists"
         },
       ],
     });
+  } else{
+    return res.status(400).json({ errors: [ { msg: "Unknow user" }]});
   }
 
   const data = {
@@ -168,7 +170,8 @@ async function registerProject(req, res) {
     description: req.body.description,
   };
 
-  // Save Project in the database
+
+  // Save Project in the datbase
   Project.create(data)
     .then(data => {
       res.status(201).send(data);
