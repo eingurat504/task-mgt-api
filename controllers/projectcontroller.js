@@ -74,6 +74,29 @@ async function getProjects(req, res) {
 }
 
 /**
+ * Get Canccelled Projects
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api  api/projects/pending
+ */
+ async function getCancelledProjects(req, res) { 
+
+  Project.findAll({ where: { status: 'cancelled' }  })
+    .then(data => {
+      res.send({'cancelled_projects': data });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving cancelled projects."
+      });
+    });
+
+}
+
+/**
  * Get Project details
  * 
  * @param {*} req 
@@ -327,6 +350,7 @@ module.exports = {
   registerProject,
   getCompletedProjects,
   getPendingProjects,
+  getCancelledProjects,
   updateProject,
   completeProject,
   cancelProject,
