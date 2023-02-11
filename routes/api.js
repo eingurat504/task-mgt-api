@@ -49,6 +49,7 @@ router.get('/comments/:id', auth, comments.getComment);
 router.post('/comments', auth, comments.registerComment);
 router.put('/comments/:id', auth, comments.updateComment);
 router.put('/comments/:id/cancel', auth, comments.cancelComment);
+router.delete('/comments/:id', auth, comments.deleteComment);
 
 /* User */
 router.get('/users', users.getUsers);
