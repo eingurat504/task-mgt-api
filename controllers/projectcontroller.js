@@ -311,6 +311,73 @@ async function updateProject(req, res) {
 }
 
 /**
+ * Attach user to Project
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * 
+ * @api api/projects/attach_user
+ */
+ async function attachUserToProject(req, res) {
+
+        await check('name').notEmpty()
+        .withMessage('Name is Required').run(req);
+
+        const result = validationResult(req);
+
+        if (!result.isEmpty()) {
+            return res.status(422).json({ 
+            errors: result.array() 
+            });
+        }
+
+      // Get user input   
+      const user_id = req.body.userId;
+
+      // Validate if user already exists
+      let user = await User.findOne({ where: {
+        id : user_id
+      } });
+
+      if (user) {
+        return res.status(422).json({
+          errors: [
+            {
+              name: user.id,
+              msg: "User exists"
+            },
+          ],
+        });
+      } else{
+        return res.status(400).json({ errors: [ { msg: "Unknow user" }]});
+      }
+
+      // Save Project in the datbase
+      const id = req.params.id;
+
+      Project.update(req.body, {
+        where: { id: id }
+      })
+        .then(num => {
+          if (num == 1) {
+            res.send({
+              message: "Project was updated successfully."
+            });
+          } else {
+            res.send({
+              message: `Cannot update Project with id=${id}. Maybe Project was not found or req.body is empty!`
+            });
+          }
+        })
+        .catch(err => {
+          res.status(500).send({
+            message: "Error updating Project with id=" + id
+          });
+        });
+
+}
+
+/**
  * Delete Project
  * 
  * @param {*} req 
@@ -354,5 +421,6 @@ module.exports = {
   updateProject,
   completeProject,
   cancelProject,
+  attachUserToProject,
   deleteProject
 }
