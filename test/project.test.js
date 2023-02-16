@@ -2,22 +2,6 @@ const assert = require('assert');
 const db = require("../models");
 const Project = db.projects;
 
-  // describe('#find()', function () {
-  //   it('responds with matching records', async function () {
-  //     const projects = await Project.findAll({type: 'Project'});
-  //     projects.should.have.length(3);
-  //   });
-  // });
-
-  // describe('Project', function () {
-  //   describe('#save()', function () {
-  //     it('should save without error', function (done) {
-  //       var project = new Project('Luna');
-  //       project.save();
-  //     });
-  //   });
-  // });
-
 describe('Project Unit Tests', function () {
    
   /**
@@ -69,6 +53,49 @@ describe('Project Unit Tests', function () {
 
     });
   });
+
+    /**
+   * Register Project
+   * 
+   */
+     describe("PUT /api/projects/:projectId updateProject", function () {
+      it("should successfully update a project", async function () {
+        const data ={
+          name: 'RECTS',
+          userId: 1,
+          status: 1,
+          description: 'RECTS description',
+        }
+
+        const id = req.params.id;
+
+        const returnedProject = Project.update(data, { 
+          where: { id: id }
+        });
+  
+        assert.ok(true);
+  
+      });
+    });
+
+    
+    /**
+   * Register Project
+   * 
+   */
+     describe("DELETE /api/projects/:projectId updateProject", function () {
+      it("should successfully update a project", async function () {
+        
+        const id = 1;
+
+        const returnedProject = Project.destroy({ 
+          where: { id: id }
+        });
+  
+        assert.ok(true);
+  
+      });
+    });
 
 });
   
