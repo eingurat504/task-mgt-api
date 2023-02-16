@@ -55,7 +55,7 @@ describe('Project Unit Tests', function () {
   });
 
     /**
-   * Register Project
+   * Update Project
    * 
    */
      describe("PUT /api/projects/:projectId updateProject", function () {
@@ -67,7 +67,7 @@ describe('Project Unit Tests', function () {
           description: 'RECTS description',
         }
 
-        const id = req.params.id;
+        const id = 1;
 
         const returnedProject = Project.update(data, { 
           where: { id: id }
@@ -80,10 +80,10 @@ describe('Project Unit Tests', function () {
 
     
     /**
-   * Register Project
+   * Delete Project
    * 
    */
-     describe("DELETE /api/projects/:projectId updateProject", function () {
+     describe("DELETE /api/projects/:projectId deleteProject", function () {
       it("should successfully update a project", async function () {
         
         const id = 1;
