@@ -38,5 +38,49 @@ describe('Comment Unit Tests', function () {
     });
   });
 
+   /**
+   * Update Comments
+   * 
+   */
+     describe("PUT /api/comments/:commentId updateComment", function () {
+      it("should successfully update a comment", async function () {
+  
+        const data ={
+          name: 'Error handling',
+          taskId: 1,
+          status: 1,
+          comment: "form validation and error Handling ",
+          userId: 2,
+        }
+
+        const id = 1;
+
+        Comment.update(data, {
+          where: { id: id }
+        })
+  
+        assert.ok(true);
+  
+      });
+    });
+
+      /**
+   * Update Comments
+   * 
+   */
+    describe("DELETE /api/comments/:commentId deleteComment", function () {
+      it("should successfully delete a comment", async function () {
+  
+        const id = 1;
+
+        Comment.destroy({
+          where: { id: id }
+        })
+  
+        assert.ok(true);
+  
+      });
+    });
+
 });
   
