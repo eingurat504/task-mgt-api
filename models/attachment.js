@@ -20,23 +20,11 @@ module.exports = function(sequelize, Sequelize){
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        userId: {
+        taskId: {
             allowNull: false,
             type: Sequelize.INTEGER,
             references: User,
             referencesKey: 'id'
-        },
-        name: {
-            type: Sequelize.STRING,
-            noEmpty: true
-        },
-        status: {
-            type:Sequelize.ENUM('completed','pending','cancelled'),
-            defaultValue: 'pending'
-        },
-        description: {
-            type: Sequelize.STRING,
-            noEmpty:true
         }
     },{
         sequelize,
