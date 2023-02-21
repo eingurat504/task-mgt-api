@@ -18,7 +18,7 @@ router.get('/logout', auth, authenticate.logout);
 /* project */
 router.get('/projects', auth, projects.getProjects);
 router.get('/projects/pending', auth, projects.getPendingProjects);
-router.get('/projects/completed',auth, projects.getCompletedProjects);
+router.get('/projects/completed',auth, projects.allowIfLoggedin, projects.grantAccess('readAny', 'profile'), projects.getCompletedProjects);
 router.post('/projects/attach_user',auth, projects.attachUserToProject);
 router.get('/projects/:id', auth, projects.getProject);
 router.post('/projects', auth, projects.registerProject);
