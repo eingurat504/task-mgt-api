@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const tokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
 const verifyToken = (req, res, next) => {
-    const token = req.headers.authorization
+    const token = req.headers.authorization || req.headers.Authorization;
     if (!token) res.status(403).json({error: "Access denied"})
     else {
         jwt.verify(token.split(" ")[1], tokenSecret, (err, value) => {
