@@ -7,6 +7,7 @@ const comments = require('../controllers/commentcontroller.js');
 const tasks = require('../controllers/taskcontroller.js');
 const users = require('../controllers/usercontroller.js');
 const auth = require("../middleware/auth");
+const verifyRoles = require("../middleware/verifyRoles");
 
 router.get('/',api.index);
 
@@ -60,6 +61,6 @@ router.get('/users/me', auth, users.getProfile);
 router.get('/users/:id', auth, users.getUser);
 router.put('/users/:id/profile', auth, users.updateUserProfile);
 router.put('/users/:id/deactivate', auth, users.deactivateUser);
-router.delete('/users/:id', auth, users.deleteUser);
+router.delete('/users/:id', auth, verifyRoles(ROLES_LIST.Admin), users.deleteUser);
 
 module.exports = router;
