@@ -4,7 +4,7 @@ const app = express();
 const db = require("../models");
 const Project = db.projects;
 const User = db.users;
-const { roles } = require('../roles')
+const { roles } = require("../config/roles.js");
  
 exports.grantAccess = function(action, resource) {
  return async (req, res, next) => {

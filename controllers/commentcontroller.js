@@ -3,7 +3,7 @@ const { check, validationResult } = require('express-validator');
 const app = express();
 const db = require("../models");
 const Comment = db.comments;
-const { roles } = require('../roles')
+const { roles } = require("../config/roles.js");
  
 exports.grantAccess = function(action, resource) {
  return async (req, res, next) => {
