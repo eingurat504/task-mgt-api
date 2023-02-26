@@ -9,9 +9,9 @@ module.exports = function(sequelize, Sequelize){
         static associate({Task}) {
             this.hasMany(Task, {foreignKey: [ 'createdBy','assignedTo' ],  as: 'tasks' })
         }
-        static associate({Role}) {
-            this.belongsTo(Role, {foreignKey: 'roleId',  as: 'roles' })
-        }
+        // static associate({Role}) {
+        //     this.belongsTo(Role, {foreignKey: 'roleId',  as: 'roles' })
+        // }
     };
     
     User.init({
@@ -28,11 +28,16 @@ module.exports = function(sequelize, Sequelize){
             type: Sequelize.STRING,
             noEmpty:true
         },
-        roleId: {
-            allowNull: false,
-            type: Sequelize.INTEGER,
-            references: Role,
-            referencesKey: 'id'
+        // roleId: {
+        //     allowNull: false,
+        //     type: Sequelize.INTEGER,
+        //     references: Role,
+        //     referencesKey: 'id'
+        // },
+        role: {
+            type: String,
+            default: 'basic',
+            enum: ["basic", "supervisor", "admin"]
         },
         username: {
             type: Sequelize.STRING
