@@ -19,7 +19,7 @@ router.get('/logout', auth, authenticate.logout);
 /* project */
 router.get('/projects', auth, projects.getProjects);
 router.get('/projects/pending', auth, projects.getPendingProjects);
-router.get('/projects/completed',auth, projects.allowIfLoggedin, projects.grantAccess('readAny', 'profile'), projects.getCompletedProjects);
+// router.get('/projects/completed',auth, projects.allowIfLoggedin, projects.grantAccess('readAny', 'profile'), projects.getCompletedProjects);
 router.post('/projects/attach_user',auth, projects.attachUserToProject);
 router.get('/projects/:id', auth, projects.getProject);
 router.post('/projects', auth, projects.registerProject);
@@ -61,6 +61,6 @@ router.get('/users/me', auth, users.getProfile);
 router.get('/users/:id', auth, users.getUser);
 router.put('/users/:id/profile', auth, users.updateUserProfile);
 router.put('/users/:id/deactivate', auth, users.deactivateUser);
-router.delete('/users/:id', auth, verifyRoles(ROLES_LIST.Admin), users.deleteUser);
+// router.delete('/users/:id', auth, verifyRoles(ROLES_LIST.Admin), users.deleteUser);
 
 module.exports = router;

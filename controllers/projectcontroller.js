@@ -6,7 +6,7 @@ const Project = db.projects;
 const User = db.users;
 const { roles } = require("../config/roles.js");
  
-exports.grantAccess = function(action, resource) {
+exports.grantAccess = async function(action, resource) {
  return async (req, res, next) => {
   try {
    const permission = roles.can(req.user.role)[action](resource);
