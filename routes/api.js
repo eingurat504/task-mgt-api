@@ -9,6 +9,8 @@ const users = require('../controllers/usercontroller.js');
 const auth = require("../middleware/auth");
 const verifyRoles = require("../middleware/verifyRoles");
 
+
+
 router.get('/',api.index);
 
 /* Auth */
