@@ -1,18 +1,17 @@
 const { Model } = require('sequelize');
+const db = require("../models");
+const Project = db.projects;
+const Task = db.tasks;
+
 
 module.exports = function(sequelize, Sequelize){
     
     class User extends Model{
-        static associate({Project}) {
+        static associate({Project, Task}) {
             this.hasMany(Project, {foreignKey: 'userId',  as: 'projects' })
-        }
-        static associate({Task}) {
             this.hasMany(Task, {foreignKey: [ 'createdBy','assignedTo' ],  as: 'tasks' })
         }
-        // static associate({Role}) {
-        //     this.belongsTo(Role, {foreignKey: 'roleId',  as: 'roles' })
-        // }
-    };
+    }
     
     User.init({
         id: {
@@ -28,14 +27,8 @@ module.exports = function(sequelize, Sequelize){
             type: Sequelize.STRING,
             noEmpty:true
         },
-        // roleId: {
-        //     allowNull: false,
-        //     type: Sequelize.INTEGER,
-        //     references: Role,
-        //     referencesKey: 'id'
-        // },
         role: {
-            type: String,
+            type: Sequelize.STRING,
             default: 'basic',
             enum: ["basic", "supervisor", "admin"]
         },

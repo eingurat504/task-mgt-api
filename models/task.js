@@ -5,10 +5,8 @@ const Project = db.projects;
 module.exports = function(sequelize, Sequelize){
     
     class Task extends Model {
-        static associate({Project}) {
+        static associate({Project, User}) {
             this.belongsTo(Project, {foreignKey: 'projectId', as: 'projects' })
-        }
-        static associate({User}) {
             this.belongsTo(User, {foreignKey: ['createdBy','assignedTo'], as: 'users' })
         }
     };

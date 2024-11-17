@@ -9,8 +9,6 @@ const users = require('../controllers/usercontroller.js');
 const auth = require("../middleware/auth");
 const verifyRoles = require("../middleware/verifyRoles");
 
-
-
 router.get('/',api.index);
 
 /* Auth */
@@ -56,7 +54,7 @@ router.put('/comments/:id/cancel', auth, comments.cancelComment);
 router.delete('/comments/:id', auth, comments.deleteComment);
 
 /* User */
-router.get('/users', users.getUsers);
+router.get('/users', auth, users.getUsers);
 router.get('/users/deactivated', auth, users.getDeactivatedUsers);
 router.get('/users/active', auth, users.getActiveUsers);
 router.get('/users/me', auth, users.getProfile);

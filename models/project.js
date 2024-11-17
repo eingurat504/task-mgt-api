@@ -2,16 +2,18 @@
 const { Model } = require('sequelize');
 const db = require("../models");
 const User = db.users;
+const Task = db.tasks;
 
 module.exports = function(sequelize, Sequelize){
 
     class Project extends Model{
-        static associate({User}) {
+        static associate({User,Task}) {
             this.belongsTo(User, {foreignKey: 'userId', as: 'users' })
-        }
-        static associate({Task}) {
             this.hasMany(Task, {foreignKey: 'projectId',  as: 'tasks' })
         }
+        // static associate({Task}) {
+        //     this.hasMany(Task, {foreignKey: 'projectId',  as: 'tasks' })
+        // }
     };
 
     Project.init({

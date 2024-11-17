@@ -167,7 +167,11 @@ async function getProject(req, res) {
 async function registerProject(req, res) {
 
     await check('name').notEmpty()
-    .withMessage('Name is Required').run(req);
+      .withMessage('Name is Required').run(req);
+    await check('userId').notEmpty()
+      .withMessage('User is Required').run(req);
+    await check('description').notEmpty()
+      .withMessage('Description is Required').run(req);
 
     const result = validationResult(req);
 
@@ -199,28 +203,27 @@ async function registerProject(req, res) {
   // Get user input   
   const user_id = req.body.userId;
 
-  // Validate if user already exists
+  // // Validate if user already exists
   let user = await User.findOne({ where: {
     id : user_id
   } });
 
-  if (user) {
-    return res.status(422).json({
+  if (!user) {
+    return res.status(400).json({
       errors: [
         {
           name: user.id,
-          msg: "User exists"
+          msg: "Unknow user"
         },
       ],
     });
-  } else{
-    return res.status(400).json({ errors: [ { msg: "Unknow user" }]});
-  }
+  } 
+  
 
   const data = {
     name: req.body.name,
     userId: user.id,
-    status: req.body.status,
+    status: 'pending',
     description: req.body.description,
   };
 
