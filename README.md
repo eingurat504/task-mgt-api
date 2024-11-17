@@ -7,10 +7,8 @@ This simple task management api was developed in node.js express js and js web t
 - User registration and login
 - Secure password storage using bcrypt
 - Local authentication with jsonwebtoken
-- Session management with express-session
 - Project management
 - Task management
-- Attachment management
 
 ## Technologies Used
 
